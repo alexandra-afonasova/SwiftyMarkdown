@@ -36,8 +36,8 @@ public enum CharacterStyle : CharacterStyling {
 	}
 }
 
-enum MarkdownLineStyle : LineStyling {
-    var shouldTokeniseLine: Bool {
+public enum MarkdownLineStyle : LineStyling {
+    public var shouldTokeniseLine: Bool {
         switch self {
         case .codeblock:
             return false
@@ -66,7 +66,7 @@ enum MarkdownLineStyle : LineStyling {
 	case orderedListIndentSecondOrder
 	case referencedLink
 	
-    func styleIfFoundStyleAffectsPreviousLine() -> LineStyling? {
+    public func styleIfFoundStyleAffectsPreviousLine() -> LineStyling? {
         switch self {
         case .previousH1:
             return MarkdownLineStyle.h1
@@ -571,7 +571,6 @@ extension SwiftyMarkdown {
 			
             if let linkIdx = styles.firstIndex(of: .link), linkIdx < token.metadataStrings.count {
                 attributes[.foregroundColor] = self.link.color
-                attributes[.font] = self.font(for: line, characterOverride: .link)
                 attributes[.link] = token.metadataStrings[linkIdx] as AnyObject
                 
                 if underlineLinks {
